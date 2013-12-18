@@ -31,13 +31,13 @@ module Clockwork
     end
 
     def run(t)
-      @manager.log "Triggering '#{self}'"
+      @manager.log "Triggering '#{self}' - #{Time.now}"
       @last = convert_timezone(t)
       if thread?
         if @manager.thread_available?
           Thread.new { execute }
         else
-          @manager.log_error "Threads exhausted; skipping #{self}"
+          @manager.log_error "Threads exhausted; skipping #{self} - #{Time.now}"
         end
       else
         execute
